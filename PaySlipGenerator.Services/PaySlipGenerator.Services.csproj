@@ -1,7 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk"> 
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PaySlipGenerator.Entity\PaySlipGenerator.Entity.csproj" />
+    <ProjectReference Include="..\PaySlipGenerator.Persistence\PaySlipGenerator.Persistence.csproj" />
+  </ItemGroup>
 
 </Project>
