@@ -1,11 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">  
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\PaySlipGenerator.Entity\PaySlipGenerator.Entity.csproj" />
+    <ProjectReference Include="..\PaySlipGenerator.Entity\PaySlipGenerator.Entity.csproj"/>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0"/>
+  </ItemGroup>
 </Project>
