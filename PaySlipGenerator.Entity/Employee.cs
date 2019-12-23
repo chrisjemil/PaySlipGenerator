@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PaySlipGenerator.Entity
@@ -7,7 +7,7 @@ namespace PaySlipGenerator.Entity
     public class Employee
     {
         public int Id { get; set; }
-        
+
         [Required]
         public string EmployeeNo { get; set; }
 
