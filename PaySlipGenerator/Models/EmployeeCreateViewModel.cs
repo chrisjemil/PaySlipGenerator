@@ -37,7 +37,9 @@ namespace PaySlipGenerator.Models
         public DateTime DOB { get; set; }
 
         [DataType(DataType.Date), Display(Name="Date Joined")]
-        public DateTime DateJoined { get; set; }
+        public DateTime DateJoined { get; set; } = DateTime.UtcNow;
+
+        public string Phone { get; set; }
 
         [Required(ErrorMessage="Job Role is required"), StringLength(100)]
         public string Designation { get; set; }
@@ -64,7 +66,7 @@ namespace PaySlipGenerator.Models
         [Required, StringLength(50)]
         public string City { get; set; }
 
-        [Required, StringLength(50), Display(Name="Post Code")]
+        [Required, StringLength(50)]
         public string Postcode { get; set; }
     }
 }
