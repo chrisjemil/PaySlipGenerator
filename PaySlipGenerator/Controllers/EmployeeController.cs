@@ -28,5 +28,10 @@ namespace PaySlipGenerator.Controllers
             }).ToList();
             return View(employees);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
