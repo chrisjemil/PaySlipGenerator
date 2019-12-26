@@ -125,10 +125,10 @@ namespace PaySlipGenerator.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EmployeeEditViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var employee = _employeeeService.GetById(model.Id);
-                if(employee == null)
+                if (employee == null)
                 {
                     return NotFound();
                 }
@@ -165,7 +165,7 @@ namespace PaySlipGenerator.Controllers
             }
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult Detail(int id)
         {
@@ -196,6 +196,30 @@ namespace PaySlipGenerator.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var employee = _employeeeService.GetById(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            var model = new EmployeeDeleteViewModel()
+            {
+                Id = employee.Id,
+                FullName = employee.FullName
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(EmployeeDeleteViewModel model)
+        {
+            await _employeeeService.Delete(model.Id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
