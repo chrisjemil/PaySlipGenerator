@@ -12,6 +12,8 @@ using PaySlipGenerator.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PaySlipGenerator.Services;
+using PaySlipGenerator.Services.Implementation;
 
 namespace PaySlipGenerator
 {
@@ -34,6 +36,7 @@ namespace PaySlipGenerator
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
            services.AddRazorPages();
+           services.AddScoped<IEmployeeService,EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
