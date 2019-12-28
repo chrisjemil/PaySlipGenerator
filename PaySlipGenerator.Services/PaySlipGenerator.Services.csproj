@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk"> 
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\PaySlipGenerator.Entity\PaySlipGenerator.Entity.csproj" />
-    <ProjectReference Include="..\PaySlipGenerator.Persistence\PaySlipGenerator.Persistence.csproj" />
+    <ProjectReference Include="..\PaySlipGenerator.Entity\PaySlipGenerator.Entity.csproj"/>
+    <ProjectReference Include="..\PaySlipGenerator.Persistence\PaySlipGenerator.Persistence.csproj"/>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0"/>
+  </ItemGroup>
 </Project>
