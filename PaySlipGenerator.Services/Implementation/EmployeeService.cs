@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PaySlipGenerator.Entity;
 using PaySlipGenerator.Persistence;
 
@@ -87,6 +88,15 @@ namespace PaySlipGenerator.Services.Implementation
                 fee = 0m;
             }
             return fee;
+        }
+
+        public IEnumerable<SelectListItem> GetAllEmployeesForPayroll()
+        {
+            return GetAll().Select(emp => new SelectListItem()
+            {
+                Text = emp.FullName,
+                Value = emp.Id.ToString()
+            });
         }
     }
 }
