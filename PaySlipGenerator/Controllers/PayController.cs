@@ -98,5 +98,10 @@ namespace PaySlipGenerator.Controllers
             ViewBag.taxYears = _payComputationService.GetAllTaxYear();
             return View();
         }
+
+        public IActionResult Detail(int id)
+        {
+            return View();
+        }
     }
 }
