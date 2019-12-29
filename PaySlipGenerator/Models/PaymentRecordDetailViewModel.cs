@@ -22,6 +22,7 @@ namespace PaySlipGenerator.Models
 
         [Display(Name = "Tax Year")]
         public int TaxYearId { get; set; }
+        public string Year { get; set; }
         public TaxYear TaxYear { get; set; }
 
         [Display(Name = "Tax Code")]
@@ -38,6 +39,9 @@ namespace PaySlipGenerator.Models
 
         [Display(Name = "Overtime Hours")]
         public decimal OvertimeHours { get; set; }
+
+        [Display(Name = "Overtime Rate")]
+        public decimal OvertimeRate { get; set; }
 
         [Display(Name = "Contractual Earnings")]
         public decimal ContractualEarnings { get; set; }
