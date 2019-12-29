@@ -32,5 +32,10 @@ namespace PaySlipGenerator.Controllers
             });
             return View(payRecords);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
