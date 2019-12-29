@@ -25,7 +25,7 @@ namespace PaySlipGenerator.Services.Implementation
             }
             else
             {
-                contractualEarnings = contractualEarnings * hourlyRate;
+                contractualEarnings = contractualHours * hourlyRate;
             }
             return contractualEarnings;
         }
