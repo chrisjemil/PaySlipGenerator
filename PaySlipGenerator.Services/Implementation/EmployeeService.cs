@@ -10,6 +10,7 @@ namespace PaySlipGenerator.Services.Implementation
     {
         private readonly ApplicationDbContext _context;
         private decimal studentLoanAmount;
+        private decimal fee;
 
         public EmployeeService(ApplicationDbContext context)
         {
@@ -76,9 +77,16 @@ namespace PaySlipGenerator.Services.Implementation
 
         public decimal UnionFees(int id)
         {
-            throw new System.NotImplementedException();
+            var employee = GetById(id);
+            if (employee.UnionMember == UnionMember.Yes)
+            {
+                fee = 10m;
+            }
+            else
+            {
+                fee = 0m;
+            }
+            return fee;
         }
-
-
     }
 }
