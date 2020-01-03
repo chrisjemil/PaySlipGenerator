@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using PaySlipGenerator.Persistence;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaySlipGenerator.Services;
 using PaySlipGenerator.Services.Implementation;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace PaySlipGenerator
 {
@@ -35,7 +31,9 @@ namespace PaySlipGenerator
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 //Default Password Settings
@@ -50,7 +48,7 @@ namespace PaySlipGenerator
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
             });
-            
+
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IEmployeeService, EmployeeService>();
@@ -60,7 +58,8 @@ namespace PaySlipGenerator
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager,
+                                RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -77,7 +76,7 @@ namespace PaySlipGenerator
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            DataSeedingInitializer.UserAndRoleSeedAsync(userManager, roleManager).Wait();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -88,7 +87,7 @@ namespace PaySlipGenerator
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
+
         }
     }
 }
