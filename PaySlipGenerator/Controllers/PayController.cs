@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaySlipGenerator.Entity;
 using PaySlipGenerator.Models;
@@ -8,6 +9,7 @@ using RotativaCore;
 
 namespace PaySlipGenerator.Controllers
 {
+    [Authorize(Roles = "Admin, Manager")]
     public class PayController : Controller
     {
         private readonly IPayComputationService _payComputationService;
@@ -54,6 +56,7 @@ namespace PaySlipGenerator.Controllers
             return View(payRecords);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.employees = _employeeService.GetAllEmployeesForPayroll();
@@ -64,6 +67,7 @@ namespace PaySlipGenerator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(PaymentRecordCreateViewModel model)
         {
             if (ModelState.IsValid)
@@ -140,6 +144,7 @@ namespace PaySlipGenerator.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Payslip(int id)
         {
             var paymentRecord = _payComputationService.GetById(id);
@@ -176,7 +181,7 @@ namespace PaySlipGenerator.Controllers
                 TaxYear = paymentRecord.TaxYear,
                 NetPayment = paymentRecord.NetPayment
             };
-            
+
             return View(model);
         }
 
@@ -187,7 +192,7 @@ namespace PaySlipGenerator.Controllers
                 FileName = "payslip.pdf"
             };
             return payslip;
-            
+
         }
     }
 }

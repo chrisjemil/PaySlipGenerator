@@ -34,6 +34,11 @@ namespace PaySlipGenerator
 
             services.AddSingleton<IEmailSender, EmailSender>();
 
+            services.ConfigureApplicationCookie(options =>
+            {                
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
             services.Configure<IdentityOptions>(options =>
             {
                 //Default Password Settings
