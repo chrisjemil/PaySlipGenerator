@@ -20,7 +20,7 @@ namespace PaySlipGenerator.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? pageNumber)
         {
             var employees = _employeeeService.GetAll().Select(employee => new EmployeeIndexViewModel
             {
@@ -33,7 +33,8 @@ namespace PaySlipGenerator.Controllers
                 City = employee.City,
                 DateJoined = employee.DateJoined
             }).ToList();
-            return View(employees);
+            int pageSize = 4; //Number of employee on each page
+            return View(EmployeeListPagination<EmployeeIndexViewModel>.Create(employees, pageNumber ?? 1, pageSize) );
         }
 
         [HttpGet]
