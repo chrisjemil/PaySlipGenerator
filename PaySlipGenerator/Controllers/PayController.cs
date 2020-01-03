@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PaySlipGenerator.Entity;
 using PaySlipGenerator.Models;
 using PaySlipGenerator.Services;
+using RotativaCore;
 
 namespace PaySlipGenerator.Controllers
 {
@@ -23,8 +24,8 @@ namespace PaySlipGenerator.Controllers
         private decimal studentLoan;
         private decimal totalDeduction;
 
-        public PayController(IPayComputationService payComputationService, 
-                            IEmployeeService employeeService, 
+        public PayController(IPayComputationService payComputationService,
+                            IEmployeeService employeeService,
                             ITaxService taxService,
                             INationalInsuranceContributionService nationalInsuranceContributionService)
         {
@@ -175,7 +176,18 @@ namespace PaySlipGenerator.Controllers
                 TaxYear = paymentRecord.TaxYear,
                 NetPayment = paymentRecord.NetPayment
             };
+            
             return View(model);
+        }
+
+        public IActionResult GeneratePayslipPdf(int id)
+        {
+            var payslip = new ActionAsPdf("Payslip", new { id = id })
+            {
+                FileName = "payslip.pdf"
+            };
+            return payslip;
+            
         }
     }
 }
