@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PaySlipGenerator.Areas.Identity.Data;
+using PaySlipGenerator.Persistence;
 
 [assembly: HostingStartup(typeof(PaySlipGenerator.Areas.Identity.IdentityHostingStartup))]
 namespace PaySlipGenerator.Areas.Identity

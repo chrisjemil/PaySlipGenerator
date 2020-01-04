@@ -28,7 +28,7 @@ namespace PaySlipGenerator
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -79,14 +79,15 @@ namespace PaySlipGenerator
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-            DataSeedingInitializer.UserAndRoleSeedAsync(userManager, roleManager).Wait();
+
             app.UseAuthentication();
             app.UseAuthorization();
-
+            DataSeedingInitializer.UserAndRoleSeedAsync(userManager, roleManager).Wait();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
